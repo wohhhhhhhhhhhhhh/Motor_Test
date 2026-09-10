@@ -26,7 +26,7 @@ SimplePID::PIDParam param = {
 };
 SimplePID myPID(SimplePID::PID_POSITION, param);
 // Motor
-MotorM3508 motor(1, &myPID);
+MotorDM4310 motor(1, 0, 3.141593f, 30, 10, &myPID);
 // RemoteControl
 DR16RemoteControl dr16;
 
