@@ -203,6 +203,8 @@ targets:
         - GSRL/Dependence/eigen
       libList: []
     excludeList: []
+    settings:
+      debugger: cortex-debug
     toolchain: GCC
     toolchainConfigMap:
       GCC:
