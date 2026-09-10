@@ -26,7 +26,7 @@ SimplePID::PIDParam param = {
 };
 SimplePID myPID(SimplePID::PID_POSITION, param);
 // Motor
-MotorDM4310 motor(1, 0, 3.1415926f, 40, 15, &myPID);
+MotorDM4310 motor(1, 0, 3.141593f, 30, 10, &myPID);
 // RemoteControl
 DR16RemoteControl dr16;
 
@@ -49,7 +49,7 @@ extern "C" void test_task(void *argument)
     UART_Init(&huart3, dr16ITCallback, 36);            // 初始化DR16串口
     TickType_t taskLastWakeTime = xTaskGetTickCount(); // 获取任务开始时间
     while (1) {
-        motor.openloopControl(0.0f);
+        motor.angularVelocityClosedloopControl(1.0f);
         transmitMotorsControlData();
         vTaskDelayUntil(&taskLastWakeTime, 1); // 确保任务以定周期1ms运行
     }
