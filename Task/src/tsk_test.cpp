@@ -18,15 +18,15 @@
 /* Define --------------------------------------------------------------------*/
 // PID
 SimplePID::PIDParam param = {
-    10.0f,  // Kp
+    200.0f,  // Kp
     0.0f,   // Ki
-    500.0f, // Kd
-    10.0f,  // outputLimit
-    0.0f    // intergralLimit
+    0.5f, // Kd
+    15000.0f,  // outputLimit
+    2000.0f   // intergralLimit
 };
 SimplePID myPID(SimplePID::PID_POSITION, param);
 // Motor
-MotorM3508 motor(1, &myPID);
+MotorM3508 motor(2, &myPID);
 // RemoteControl
 DR16RemoteControl dr16;
 
@@ -49,7 +49,7 @@ extern "C" void test_task(void *argument)
     UART_Init(&huart3, dr16ITCallback, 36);            // 初始化DR16串口
     TickType_t taskLastWakeTime = xTaskGetTickCount(); // 获取任务开始时间
     while (1) {
-        motor.angularVelocityClosedloopControl(1.0f);
+        motor.angularVelocityClosedloopControl(20.0f);
         transmitMotorsControlData();
         vTaskDelayUntil(&taskLastWakeTime, 1); // 确保任务以定周期1ms运行
     }
